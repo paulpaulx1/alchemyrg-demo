@@ -1,0 +1,116 @@
+/* Combined styles.css and typography.css */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
+
+:root {
+  --font-serif: 'EB Garamond', Georgia, serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-serif);
+    background-color: #ffffff;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.artwork {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, filter 1.5s ease-in-out, transform 1.5s ease-in-out;
+    height: 80vh;
+    max-width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.artwork img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.artwork.active {
+    opacity: 1;
+}
+
+.artwork.lowres {
+    filter: blur(20px);
+    transform: scale(1.05); /* Slightly larger to avoid blur edges showing */
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    transition: opacity 0.3s ease;
+}
+
+.site-header:hover {
+    opacity: 1;
+}
+
+.site-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+}
+
+.site-nav {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.1rem;
+}
+
+.site-nav a {
+    color: black;
+    text-decoration: none;
+    margin-left: 1.5rem;
+}
+
+.site-nav a:hover {
+    text-decoration: underline;
+}
+
+.image-caption {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 10;
+}
+
+.image-caption.active {
+    opacity: 1;
+}
