@@ -4,65 +4,86 @@
     top: 1.5rem;
     right: 1.5rem;
     z-index: 100;
-    width: 30px;
-    height: 22px;
     cursor: pointer;
     transition: opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     background: transparent;
     border: none;
     padding: 0;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1.25rem;
+    color: #000;
 }
   
 .menu-button:focus {
     outline: none;
 }
-  
-.menu-button__line {
-    width: 100%;
-    height: 2px;
-    background-color: #000;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-  
-.menu-button.active .menu-button__line:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
-}
-  
-.menu-button.active .menu-button__line:nth-child(2) {
-    opacity: 0;
-}
-  
-.menu-button.active .menu-button__line:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
+
+.menu-button.active {
+    color: #000;
 }
   
 .menu-overlay {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0.97);
     z-index: 90;
-    display: none; /* Changed from flex to none */
-    justify-content: center;
-    align-items: center;
+    display: none;
+    justify-content: center; /* Center for mobile */
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-  
+
 .menu-content {
-    text-align: center;
+    text-align: center; /* Center text for mobile/small screens */
+    width: 90%;
+    padding: 4rem 2rem;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Medium screens - 75% width menu */
+@media (min-width: 768px) {
+    .menu-overlay {
+        background-color: rgba(255, 255, 255, 0);
+        justify-content: flex-end; /* Right-align for medium+ screens */
+    }
+    
+    .menu-overlay::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: -1;
+    }
+    
+    .menu-content {
+        width: 67%;
+        text-align: left;
+        background-color: white;
+        height: 100%;
+        padding: 4rem 3rem;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.05);
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu-content {
+        width: 40%;
+        padding: 4rem;
+    }
 }
   
 .menu-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 4rem 0 0 0;
 }
   
 .menu-list li {
@@ -97,6 +118,7 @@
     color: #000;
     position: relative;
     padding-bottom: 5px;
+    display: inline-block; /* Better for centered text with underline effect */
 }
   
 .menu-link::after {
@@ -115,4 +137,10 @@
 .menu-link:hover::after {
     transform: scaleX(1);
     transform-origin: left;
+}
+
+.menu-button,
+.menu-content,
+.menu-link {
+    cursor: pointer !important;
 }

@@ -1,3 +1,4 @@
+// hamburger-menu.js
 document.querySelector('.menu-overlay').style.display = 'none';
 
 // Wait for everything to be fully loaded before setting up interactions
@@ -15,6 +16,9 @@ window.addEventListener('load', function() {
     menuButton.addEventListener('click', function() {
         // Toggle menu visibility
         if (menuOverlay.style.display === 'none' || menuOverlay.style.display === '') {
+            // Change button text to "Close" when menu is open
+            this.textContent = "Close";
+            
             menuOverlay.style.display = 'flex';
             // Force reflow to ensure transition works
             menuOverlay.offsetWidth;
@@ -23,6 +27,9 @@ window.addEventListener('load', function() {
             this.classList.add('active');
             body.style.overflow = 'hidden';
         } else {
+            // Change button text back to "Menu" when menu is closed
+            this.textContent = "Menu";
+            
             menuOverlay.style.opacity = '0';
             menuOverlay.style.visibility = 'hidden';
             this.classList.remove('active');
@@ -41,6 +48,9 @@ window.addEventListener('load', function() {
         link.addEventListener('click', function(e) {
             // Prevent actual navigation for demo
             e.preventDefault();
+            
+            // Change button text back to "Menu"
+            menuButton.textContent = "Menu";
             
             menuButton.classList.remove('active');
             menuOverlay.style.opacity = '0';

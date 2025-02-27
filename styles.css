@@ -107,3 +107,20 @@ body {
 .image-caption.visible {
     opacity: 1;
 }
+
+/* Cursor Debugging Stylesheet */
+/* Add this after your existing stylesheets to diagnose cursor issues */
+
+/* Force cursor to pointer on specific elements */
+.menu-button,
+.menu-content,
+.menu-link {
+    cursor: pointer !important;
+    
+    /* Add a visual indicator to confirm styles are being applied */
+}
+
+/* Ensure no conflicting cursor styles */
+* {
+    cursor: default;
+}
