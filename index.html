@@ -1,32 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Raj Gupta - Artist</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <header class="site-header">
-        <div class="site-title">Raj Gupta</div>
-        <nav class="site-nav">
-            <a href="#">Work</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
+      <div class="site-title">Raj Gupta</div>
+      <!-- <nav class="site-nav">
+        <a href="#">Menu</a>
+      </nav> -->
     </header>
 
     <div class="container">
-        <div class="image-container">
-            <!-- Images will be inserted here by JavaScript -->
-        </div>
+      <div class="image-container">
+        <!-- Images will be inserted here by JavaScript -->
+      </div>
     </div>
 
     <div class="image-caption" id="current-caption"></div>
+    <button class="menu-button" aria-label="Menu">
+      <span class="menu-button__line"></span>
+      <span class="menu-button__line"></span>
+      <span class="menu-button__line"></span>
+    </button>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay">
+      <div class="menu-content">
+        <nav>
+          <ul class="menu-list">
+            <li><a href="#" class="menu-link">Work</a></li>
+            <li><a href="#" class="menu-link">Exhibitions</a></li>
+            <li><a href="#" class="menu-link">About</a></li>
+            <li><a href="#" class="menu-link">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
 
     <!-- Load the image data first -->
     <script src="image-config.js"></script>
     <!-- Then load the main script -->
+    <script src="hamburger-menu.js"></script>
     <script src="script.js"></script>
-</body>
+    <link rel="stylesheet" href="hamburger-menu.css" />
+  </body>
 </html>

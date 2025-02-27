@@ -1,9 +1,5 @@
-/* Combined styles.css and typography.css */
+/* Simplified CSS that focuses on opacity transitions */
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap');
-
-:root {
-  --font-serif: 'EB Garamond', Georgia, serif;
-}
 
 * {
     margin: 0;
@@ -12,10 +8,11 @@
 }
 
 body {
-    font-family: var(--font-serif);
+    font-family: 'EB Garamond', Georgia, serif;
     background-color: #ffffff;
     height: 100vh;
     overflow: hidden;
+    color: rgb(17, 17, 17);
 }
 
 .container {
@@ -35,15 +32,16 @@ body {
     align-items: center;
 }
 
+/* Basic artwork styling */
 .artwork {
     position: absolute;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out, filter 1.5s ease-in-out, transform 1.5s ease-in-out;
     height: 80vh;
     max-width: 95vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0; /* Start invisible */
+    transition: opacity 3s ease-in-out; /* Default transition, will be overridden in JS */
 }
 
 .artwork img {
@@ -52,15 +50,17 @@ body {
     object-fit: contain;
 }
 
-.artwork.active {
+/* Simply apply blur to low-res images */
+.artwork.lowres img {
+    filter: blur(15px);
+}
+
+/* Simple visible class to toggle opacity */
+.artwork.visible {
     opacity: 1;
 }
 
-.artwork.lowres {
-    filter: blur(20px);
-    transform: scale(1.05); /* Slightly larger to avoid blur edges showing */
-}
-
+/* Header and navigation */
 .site-header {
     position: fixed;
     top: 0;
@@ -70,22 +70,15 @@ body {
     z-index: 10;
     display: flex;
     justify-content: space-between;
-    transition: opacity 0.3s ease;
-}
-
-.site-header:hover {
-    opacity: 1;
 }
 
 .site-title {
-    font-family: var(--font-serif);
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     letter-spacing: 0.02em;
 }
 
 .site-nav {
-    font-family: var(--font-serif);
     font-weight: 400;
     font-size: 1.1rem;
 }
@@ -100,17 +93,17 @@ body {
     text-decoration: underline;
 }
 
+/* Caption styling */
 .image-caption {
     position: fixed;
     bottom: 1.5rem;
     left: 1.5rem;
-    font-family: var(--font-serif);
     font-size: 0.9rem;
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
+    transition: opacity 3s ease-in-out;
     z-index: 10;
 }
 
-.image-caption.active {
+.image-caption.visible {
     opacity: 1;
 }

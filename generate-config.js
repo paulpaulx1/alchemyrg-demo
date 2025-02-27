@@ -14,7 +14,6 @@ const highResImages = files.filter(file => file.includes('-highres'));
 
 // Generate image data array
 const imageData = [];
-let id = 1;
 
 highResImages.forEach(highResFile => {
   // Get base name (without -highres suffix)
@@ -31,15 +30,12 @@ highResImages.forEach(highResFile => {
       .replace(/[-_]/g, ' ')
       .replace(/\b\w/g, char => char.toUpperCase());
     
-    // Add to image data
+    // Add to image data - no explicit ID needed
     imageData.push({
-      id,
       title,
       lowRes: `images/${lowResFile}`,
       highRes: `images/${highResFile}`
     });
-    
-    id++;
   } else {
     console.warn(`Warning: No matching low-res file found for ${highResFile}`);
   }

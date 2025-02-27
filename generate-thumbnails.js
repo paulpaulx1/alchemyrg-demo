@@ -7,13 +7,10 @@ const sharp = require('sharp');
 const sourceFolder = 'images/originals'; // Put original high-res images here
 const targetFolder = 'images'; // Where processed images will be saved
 
-// Low-res settings
-const lowResMaxWidth = 600; // Max width for low-res images
-const lowResQuality = 60; // JPEG quality (lower = smaller file size)
-
-// High-res (display quality) settings 
-const highResMaxWidth = 1800; // Max width for high-res images
+// Settings for both versions
+const maxWidth = 1800; // Max width for both high-res and low-res
 const highResQuality = 85; // Quality for high-res (target ~500KB)
+const lowResQuality = 60; // JPEG quality for low-res (target ~50KB)
 
 // Create target directory if it doesn't exist
 if (!fs.existsSync(targetFolder)) {
@@ -37,22 +34,33 @@ async function processImages() {
     const sourcePath = path.join(sourceFolder, file);
     const fileNameWithoutExt = path.basename(file, path.extname(file));
     
-    // Create optimized high-res version (target ~500KB)
-    const highResPath = path.join(targetFolder, `${fileNameWithoutExt}-highres${path.extname(file)}`);
     try {
+      const imageInfo = await sharp(sourcePath).metadata();
+      const aspectRatio = imageInfo.height / imageInfo.width;
+      const newHeight = Math.round(maxWidth * aspectRatio);
+      
+      const highResPath = path.join(targetFolder, `${fileNameWithoutExt}-highres${path.extname(file)}`);
       await sharp(sourcePath)
-        .resize({ width: highResMaxWidth, withoutEnlargement: true })
+        .resize({
+          width: maxWidth,
+          height: newHeight,
+          fit: 'inside',
+          withoutEnlargement: true
+        })
         .jpeg({ quality: highResQuality })
         .toFile(highResPath);
-        
-      // Create low-res version (without blur) for faster initial load
+      
       const lowResPath = path.join(targetFolder, `${fileNameWithoutExt}-lowres${path.extname(file)}`);
       await sharp(sourcePath)
-        .resize({ width: lowResMaxWidth, withoutEnlargement: true })
+        .resize({
+          width: maxWidth,
+          height: newHeight,
+          fit: 'inside',
+          withoutEnlargement: true
+        })
         .jpeg({ quality: lowResQuality })
         .toFile(lowResPath);
       
-      // Get file sizes for logging
       const originalSize = (fs.statSync(sourcePath).size / 1024).toFixed(2);
       const highResSize = (fs.statSync(highResPath).size / 1024).toFixed(2);
       const lowResSize = (fs.statSync(lowResPath).size / 1024).toFixed(2);
@@ -61,6 +69,7 @@ async function processImages() {
       console.log(`  Original: ${originalSize}KB`);
       console.log(`  High-res: ${highResSize}KB (target ~500KB)`);
       console.log(`  Low-res: ${lowResSize}KB (target ~50KB)`);
+      console.log(`  Dimensions: ${maxWidth}x${newHeight}px for both versions`);
     } catch (error) {
       console.error(`Error processing ${file}:`, error);
     }
